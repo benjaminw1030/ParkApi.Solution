@@ -18,7 +18,6 @@ namespace ParkApi.AddControllers
       _db = db;
     }
 
-    // GET api/parks
     /// <summary>
     /// Gets parks utilizing a query of name, category or state.
     /// </summary>
@@ -34,10 +33,14 @@ namespace ParkApi.AddControllers
     /// <returns>A specific list of parks with part or all of that category.</returns>
     /// <param name="state"></param>
     /// <returns>A specific list of parks with part or all of that state.</returns>
+    /// <param name="maxArea"></param>
+    /// <returns>A specific list of parks with less than a given area value.</returns>
+    /// <param name="minArea"></param>
+    /// <returns>A specific list of parks with more than a given area value.</returns>
     /// <response code="201">Returns valid parks</response>
     /// <response code="400">If the item is null</response>   
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Park>>> Get(string name, string category, string state)
+    public async Task<ActionResult<IEnumerable<Park>>> Get(string name, string category, string state, int maxArea, int minArea)
     {
       var query = _db.Parks.AsQueryable();
       if (name != null)
@@ -51,6 +54,14 @@ namespace ParkApi.AddControllers
       if (state != null)
       {
         query = query.Where(entry => entry.State.Contains(state));
+      }
+      if (maxArea != 0)
+      {
+        query = query.Where(entry => entry.Area < maxArea);
+      }
+      if (minArea != 0)
+      {
+        query = query.Where(entry => entry.Area > minArea);
       }
       return await query.ToListAsync();
     }

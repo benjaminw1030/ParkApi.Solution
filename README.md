@@ -82,6 +82,80 @@ The Swagger page located at the index contains documentation and explanation of 
 
 ---
 
+## API Endpoints
+* GET - Returns parks utilizing a query of name, category, state, minArea and maxArea.
+  Example:
+  
+  ```
+  GET http://localhost:5000/api/parks?name=grand&category=national&state=arizona&minarea=500&maxarea=5000
+  ```
+  Will return all parks in the database containing "grand" in their name, that are classified as a National park, are located in Arizona, and are between 500 and 5000 square km in area.  
+<br>
+* POST - Posts a new park.
+  Example:
+  ```
+  POST http://localhost:5000/api/parks
+  {
+        "name": "Silver Falls",
+        "category": "State",
+        "state": "Oregon",
+        "longitude": -122.65,
+        "latitude": 44.85,
+        "area": 36,
+        "visitors": 1100000,
+        "estDate": "1933-07-23T00:00:00"
+    }
+  ```
+  Will create a new park with those properties and return the park.  
+<br>
+* GET("{id}") - Returns the park with that ID.
+  Example:
+  ```
+  GET http://localhost:5000/api/parks/1
+  ```
+  Will return the park with a ParkId of 1.  
+<br>
+* PUT - Edits a specific park at an id with PUT.
+  Example:
+  ```
+  PUT http://localhost:5000/api/parks/1
+  {
+      "name": "Everglades",
+      "category": "National",
+      "state": "Florida",
+      "longitude": -80.93,
+      "latitude": 25.32,
+      "area": 6106.5,
+      "visitors": 702319,
+      "estDate": "1934-05-30T00:00:00"
+  }
+  ```
+  Will edit the park with a ParkId of 1 with the above values.  
+<br>
+* PATCH - Edits a specific park at an id with PATCH (does not require all values).
+  Example:
+  ```
+  PATCH http://localhost:5000/api/parks/1
+  {
+      "name": "Everglades",
+      "category": "National",
+      "state": "Florida",
+      "longitude": -80.93,
+      "latitude": 25.32,
+      "area": 6106.5,
+      "visitors": 702319,
+      "estDate": "1934-05-30T00:00:00"
+  }
+  ```
+  Will edit the park with a ParkId of 1 with the above values.  
+<br>
+* DELETE - Deletes a specific park at an id.
+  Example:
+  ```
+  DELETE http://localhost:5000/api/parks/1
+  ```
+  Will delete the park with a ParkId of 1.  
+  <br>
 ## Known Bugs
 
 - None
