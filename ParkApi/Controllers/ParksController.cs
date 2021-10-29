@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace ParkApi.AddControllers
 {
+  [Produces("application/json")]
   [Route("api/[Controller]")]
   [ApiController]
   public class ParksController : ControllerBase
@@ -18,6 +19,24 @@ namespace ParkApi.AddControllers
     }
 
     // GET api/parks
+    /// <summary>
+    /// Gets parks utilizing a query of name, category or state.
+    /// </summary>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     GET /Group
+    ///     {
+    ///        "id": 1,
+    ///        "name": "Group1",
+    ///        "messages": []
+    ///     }
+    ///
+    /// </remarks>
+    /// <param name="name"></param>
+    /// <returns>A specific list of groups with that name.</returns>
+    /// <response code="201">Returns the groups</response>
+    /// <response code="400">If the item is null</response>   
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Park>>> Get(string name, string category, string state)
     {

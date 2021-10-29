@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +9,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ParkApi.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace ParkApi
 {
@@ -33,7 +35,28 @@ namespace ParkApi
       services.AddControllers();
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "ParkApi", Version = "v1" });
+        c.SwaggerDoc("v1", new OpenApiInfo
+        {
+          Version = "v1",
+          Title = "ParkApi",
+          Description = "An API for creating a list of US National and State parks",
+          TermsOfService = new Uri("https://www.google.com/search?q=generic+terms+of+service+for+api"),
+          Contact = new OpenApiContact
+          {
+            Name = "Benjamin Wilson",
+            Email = "benjaminw1030@gmail.com",
+            Url = new Uri("https://github.com/benjaminw1030"),
+          },
+          License = new OpenApiLicense
+          {
+            Name = "Use under MIT License",
+            Url = new Uri("https://opensource.org/licenses/MIT"),
+          }
+        });
+        var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+        c.IncludeXmlComments(xmlPath);
+        c.EnableAnnotations();
       });
     }
 
@@ -43,17 +66,22 @@ namespace ParkApi
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
-        app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ParkApi v1"));
       }
       // app.UseHttpsRedirection();
+      app.UseSwagger();
+      app.UseSwaggerUI(c =>
+      {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "ParkApi v1");
+        c.RoutePrefix = string.Empty;
+        c.InjectStylesheet("/css/styles.css");
+      });
       app.UseRouting();
       app.UseAuthorization();
-      app.UseStaticFiles();
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
       });
+      app.UseStaticFiles();
     }
   }
 }
