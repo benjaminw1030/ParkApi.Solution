@@ -45,15 +45,15 @@ namespace ParkApi.AddControllers
       var query = _db.Parks.AsQueryable();
       if (name != null)
       {
-        query = query.Where(entry => entry.Name.Contains(name));
+        query = query.Where(entry => entry.Name.StartsWith(name));
       }
       if (category != null)
       {
-        query = query.Where(entry => entry.Category.Contains(category));
+        query = query.Where(entry => entry.Category.StartsWith(category));
       }
       if (state != null)
       {
-        query = query.Where(entry => entry.State.Contains(state));
+        query = query.Where(entry => entry.State.StartsWith(state));
       }
       if (maxArea != 0)
       {

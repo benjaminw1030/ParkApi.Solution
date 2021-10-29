@@ -89,7 +89,7 @@ The Swagger page located at the index contains documentation and explanation of 
   ```
   GET http://localhost:5000/api/parks?name=grand&category=national&state=arizona&minarea=500&maxarea=5000
   ```
-  Will return all parks in the database containing "grand" in their name, that are classified as a National park, are located in Arizona, and are between 500 and 5000 square km in area.  
+  Will return all parks in the database whose names start with "grand", that are classified as a National park, are located in Arizona, and are between 500 and 5000 square km in area.  
 <br>
 * POST - Posts a new park.
   Example:

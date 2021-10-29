@@ -20,6 +20,7 @@ namespace ParkApi
 {
   public class Startup
   {
+    readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
     public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
@@ -30,6 +31,17 @@ namespace ParkApi
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddCors(options =>
+      {
+        options.AddPolicy("Global",
+                          builder =>
+                          {
+                            builder.AllowAnyOrigin()
+                                   .AllowAnyHeader()
+                                   .AllowAnyMethod();
+                          });
+      });
+      // services.AddResponseCaching();
       services.AddDbContext<ParkApiContext>(opt =>
           opt.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
       services.AddControllers();
@@ -76,6 +88,8 @@ namespace ParkApi
         c.InjectStylesheet("/css/styles.css");
       });
       app.UseRouting();
+      app.UseCors("Global");
+      // app.UseResponseCaching();
       app.UseAuthorization();
       app.UseEndpoints(endpoints =>
       {
