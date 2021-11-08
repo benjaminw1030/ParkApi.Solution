@@ -83,7 +83,7 @@ The Swagger page located at the index contains documentation and explanation of 
 ### Additonal Notes:
 * This program uses [Swagger](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-6.0&viewFallbackFrom=aspnetcore-50). Check the linked resource to see how it was implemented. 
 * This program has [CORS](https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-5.0) (Cross-Origin Resource Sharing) enabled globally. The linked resource explains how it was done in Startup.cs.  
-<br>
+
 ---
 
 ## API Endpoints
