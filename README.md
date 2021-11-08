@@ -80,6 +80,10 @@ The Swagger page located at the index contains documentation and explanation of 
 11. Apply the included Migration file by typing "dotnet ef database update"
 12. To view, type "dotnet watch run" in the terminal and navigate to http://localhost:5000 or https://localhost:5001 in any web browser.
 
+### Additonal Notes:
+* This program uses [Swagger](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-6.0&viewFallbackFrom=aspnetcore-50). Check the linked resource to see how it was implemented. 
+* This program has [CORS](https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-5.0) (Cross-Origin Resource Sharing) enabled globally. The linked resource explains how it was done in Startup.cs.  
+<br>
 ---
 
 ## API Endpoints
@@ -161,6 +165,8 @@ The Swagger page located at the index contains documentation and explanation of 
 - None
 
 ---
+
+
 
 ## License
 
